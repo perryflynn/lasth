@@ -25,5 +25,28 @@ Password:
 ## Installation
 
 ```sh
+mkdir -p ~/bin/
+cd ~/bin/
+wget "https://raw.githubusercontent.com/perryflynn/lasth/master/lasth.sh" -O "lasth.sh"
+chmod a+x "lasth.sh"
+```
 
+## Extend your $PATH
+In your `~/.bashrc`:
+```sh
+export PATH="$PATH:~/bin/"
+```
+
+## Using aliases
+In your `~/.bashrc`:
+```sh
+alias lastssh='lasth.sh "^ssh "'
+alias lastcurl='lasth.sh "^curl "'
+alias lastgit='lasth.sh "^git "'
+```
+Result:
+```sh
+$ lastssh
+Welcome to lasth. Checking for history entries that match "^ssh "
+[...]
 ```
