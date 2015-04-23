@@ -22,4 +22,8 @@ Verification code:
 Password:
 ```
 
+## Installation
 
+```sh
+
+```
