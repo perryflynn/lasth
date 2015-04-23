@@ -9,7 +9,11 @@ fi
 echo "Welcome to lasth. Checking for history entries that match \"$1\""
 echo
 
+history
+
 # Find connections
+HISTFILE=~/.bash_history
+set -o history
 CONNECTIONS="$(history | cut -c 8- | grep -E "$1" | sort | uniq)"
 CTNR=0
 
