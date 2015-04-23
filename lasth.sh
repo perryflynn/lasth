@@ -9,8 +9,6 @@ fi
 echo "Welcome to lasth. Checking for history entries that match \"$1\""
 echo
 
-history
-
 # Find connections
 HISTFILE=~/.bash_history
 set -o history
