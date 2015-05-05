@@ -1,4 +1,4 @@
-#!/bin/bash -i
+#!/bin/bash
 
 if [ "$1" == "" ]; then
    echo "This script search for history entries with a regular expression."
@@ -13,7 +13,8 @@ echo
 HISTFILE=~/.bash_history
 set -o history
 CONNECTIONS="$(history | cut -c 8- | grep -E "$1" | sort | uniq)"
-CTNR=0
+unset HISTFILE
+set +o history
 
 # Matches?
 if [ "$(echo -n "$CONNECTIONS" | grep -c '^')" -lt 1 ]; then
@@ -22,6 +23,7 @@ if [ "$(echo -n "$CONNECTIONS" | grep -c '^')" -lt 1 ]; then
 fi
 
 # Print connection
+CTNR=0
 while IFS= read -r line
 do
    CTNR=$[$CTNR+1]
@@ -41,9 +43,17 @@ if [ $selection -lt 1 ] || [ $selection -gt $CTNR ]; then
    exit 1;
 fi
 
-
-# Okay! Execute!
+# Get command
 CMD=$(echo "$CONNECTIONS" | sed -n "$selection"p)
+
+# Add selected command to history
+HISTFILE=~/.bash_history
+set -o history
+echo "$CMD" >> $HISTFILE
+unset HISTFILE
+set +o history
+
+# Execute
 echo "Run \`$CMD\`..."
 echo
 $CMD
